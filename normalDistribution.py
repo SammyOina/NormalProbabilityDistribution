@@ -32,9 +32,6 @@ class Gaussian():
     
         """
         
-        #TODO: Calculate the mean of the data set. Remember that the data set is stored in self.data
-        # Change the value of the mean attribute to be the mean of the data set
-        # Return the mean of the data set
         self.mean = np.mean(self.data)
         return self.mean
                 
@@ -52,15 +49,7 @@ class Gaussian():
     
         """
 
-        # TODO:
-        #   Calculate the standard deviation of the data set
-        #   
-        #   The sample variable determines if the data set contains a sample or a population
-        #   If sample = True, this means the data is a sample. 
-        #   Keep the value of sample in mind for calculating the standard deviation
-        #
-        #   Make sure to update self.stdev and return the standard deviation as well    
-            
+                    
         if sample:
             n = len(self.data) - 1
         else:
@@ -95,12 +84,6 @@ class Gaussian():
                 line = file.readline()
         file.close()
     
-        # TODO: 
-        #   Update the self.data attribute with the data_list
-        #   Update self.mean with the mean of the data_list. 
-        #       You can use the calculate_mean() method with self.calculate_mean()
-        #   Update self.stdev with the standard deviation of the data_list. Use the 
-        #       calcaulte_stdev() method.
                 
         self.data = data_list
         self.mean = self.calculate_mean()
@@ -116,8 +99,6 @@ class Gaussian():
             None
         """
         
-        # TODO: Plot a histogram of the data_list using the matplotlib package.
-        #       Be sure to label the x and y axes and also give the chart a title
         plt.hist(self.data)
         plt.title('Histogram of Data')
         plt.xlabel('data')
@@ -135,8 +116,6 @@ class Gaussian():
             float: probability density function output
         """
         
-        # TODO: Calculate the probability density function of the Gaussian distribution
-        #       at the value x. You'll need to use self.stdev and self.mean to do the calculation
         return (1.0/(self.stdev* np.sqrt(2 * np.pi))*np.exp(-0.5*((x - self.mean)/self.stdev)**2))   
 
     def plot_histogram_pdf(self, n_spaces = 50):
@@ -186,3 +165,37 @@ class Gaussian():
         plt.show()
 
         return x, y
+    def __add__(self, other):
+        
+        """Magic method to add together two Gaussian distributions
+        
+        Args:
+            other (Gaussian): Gaussian instance
+            
+        Returns:
+            Gaussian: Gaussian distribution
+            
+        """
+        
+        # create a new Gaussian object
+        result = Gaussian()
+        
+        result.mean = self.mean + other.mean
+        result.stdev = np.sqrt(self.stdev ** 2 + other.stdev ** 2)
+        
+        return result
+
+    def __repr__(self):
+    
+        """Magic method to output the characteristics of the Gaussian instance
+        
+        Args:
+            None
+        
+        Returns:
+            string: characteristics of the Gaussian
+        
+        """
+        
+        
+        return "mean {}, standard deviation {}".format(self.mean, self.stdev)
