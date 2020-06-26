@@ -132,7 +132,6 @@ class Gaussian():
             
         """
         
-        #TODO: Nothing to do for this method. Try it out and see how it works.
         
         mu = self.mean
         sigma = self.stdev
